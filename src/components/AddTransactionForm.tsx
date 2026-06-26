@@ -54,21 +54,25 @@ export function AddTransactionForm({ onAdd, onClose }: Props) {
           <button className="btn-icon" onClick={onClose} aria-label="Close">✕</button>
         </div>
         <form onSubmit={handleSubmit} className="form">
-          <div className="form-group">
-            <label>Type</label>
+          <fieldset className="form-group">
+            <legend className="form-group-legend">Type</legend>
             <div className="toggle-group">
               <button
                 type="button"
+                data-type="expense"
                 className={`toggle-btn${type === 'expense' ? ' active' : ''}`}
+                aria-pressed={type === 'expense'}
                 onClick={() => handleTypeChange('expense')}
               >Expense</button>
               <button
                 type="button"
+                data-type="income"
                 className={`toggle-btn${type === 'income' ? ' active' : ''}`}
+                aria-pressed={type === 'income'}
                 onClick={() => handleTypeChange('income')}
               >Income</button>
             </div>
-          </div>
+          </fieldset>
           <div className="form-group">
             <label htmlFor="category">Category</label>
             <select
@@ -87,6 +91,7 @@ export function AddTransactionForm({ onAdd, onClose }: Props) {
               min="0.01"
               step="0.01"
               placeholder="0.00"
+              inputMode="decimal"
               value={amount}
               onChange={e => { setAmount(e.target.value); setError(''); }}
             />
@@ -110,7 +115,7 @@ export function AddTransactionForm({ onAdd, onClose }: Props) {
               onChange={e => setDate(e.target.value)}
             />
           </div>
-          {error && <p className="form-error">{error}</p>}
+          {error && <p className="form-error" role="alert">{error}</p>}
           <button type="submit" className="btn btn--primary btn--full">Add Transaction</button>
         </form>
       </div>

@@ -32,7 +32,10 @@ export function SpendingChart({ transactions }: Props) {
     return (
       <section className="section">
         <h2 className="section-title">Spending by Category</h2>
-        <p className="empty-state">No expense data yet.</p>
+        <div className="empty-state">
+          <span className="empty-state-icon">📊</span>
+          No expense data yet.
+        </div>
       </section>
     );
   }
