@@ -156,7 +156,7 @@ body {
 
 .transaction-row {
   display: grid;
-  grid-template-columns: 72px 70px 110px 1fr auto auto;
+  grid-template-columns: 72px 70px 80px 1fr auto auto;
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
