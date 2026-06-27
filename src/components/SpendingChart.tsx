@@ -6,12 +6,12 @@ interface Props {
 }
 
 const COLORS: Record<string, string> = {
-  Food: '#f97316',
-  Transportation: '#3b82f6',
-  Housing: '#8b5cf6',
-  Entertainment: '#ec4899',
-  Health: '#10b981',
-  Other: '#6b7280',
+  Food: '#c25e30',
+  Transportation: '#2563a8',
+  Housing: '#6b3fa0',
+  Entertainment: '#b83d72',
+  Health: '#1a5c3a',
+  Other: '#8892a4',
 };
 
 function fmt(value: number) {

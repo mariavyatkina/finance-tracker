@@ -116,7 +116,7 @@ export function AddTransactionForm({ onAdd, onClose }: Props) {
             />
           </div>
           {error && <p className="form-error" role="alert">{error}</p>}
-          <button type="submit" className="btn btn--primary btn--full">Add Transaction</button>
+          <button type="submit" className="btn btn--filled btn--full">Add Transaction</button>
         </form>
       </div>
     </div>

@@ -1,21 +1,19 @@
 /* ── Variables ─────────────────────────────────────────── */
 :root {
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-border: #e2e8f0;
-  --color-text: #1e293b;
-  --color-muted: #64748b;
-  --color-income: #16a34a;
-  --color-income-bg: #dcfce7;
-  --color-income-badge: #15803d;  /* darkened for WCAG AA on #dcfce7 */
-  --color-expense: #dc2626;
-  --color-expense-bg: #fee2e2;
-  --color-balance: #2563eb;
-  --color-balance-bg: #dbeafe;
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --radius: 10px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --bg: #f0f2ee;
+  --surface: #ffffff;
+  --border: #cdd2c9;
+  --text: #0d1409;
+  --muted: #6b7566;
+  --accent: #1a5c3a;
+  --accent-dim: #154d30;
+  --accent-light: #e4ede7;
+  --income: #1a5c3a;
+  --income-bg: #e4ede7;
+  --income-badge: #0f3d26;
+  --expense: #8b1a1a;
+  --expense-bg: #f2e4e4;
+  --radius: 4px;
 }
 
 /* ── Reset ─────────────────────────────────────────────── */
@@ -23,33 +21,39 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Layout ────────────────────────────────────────────── */
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 
 .app-header {
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--accent);
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: var(--shadow);
 }
 
 .header-inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.app-title { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); }
+.app-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
 
 .main {
   max-width: 1100px;
@@ -58,13 +62,13 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 20px;
   align-items: start;
 }
 
@@ -79,7 +83,6 @@ body {
   gap: 16px;
 }
 
-/* Tablet: 2+1 layout to prevent cramping */
 @media (max-width: 740px) and (min-width: 601px) {
   .summary-bar { grid-template-columns: 1fr 1fr; }
   .summary-card:last-child { grid-column: 1 / -1; }
@@ -90,48 +93,72 @@ body {
 }
 
 .summary-card {
-  background: var(--color-surface);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-top: 3px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px 24px;
-  box-shadow: var(--shadow);
-  border-left: 4px solid transparent;
+  padding: 20px 22px 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-.summary-card--income  { border-left-color: var(--color-income); }
-.summary-card--expense { border-left-color: var(--color-expense); }
-.summary-card--balance { border-left-color: var(--color-balance); }
-.summary-card--negative { border-left-color: var(--color-expense); }
+.summary-card--income  { border-top-color: var(--income); }
+.summary-card--expense { border-top-color: var(--expense); }
+
+.summary-card--balance {
+  background: var(--accent);
+  border-color: var(--accent);
+  border-top-color: var(--accent-dim);
+}
+.summary-card--balance .summary-label { color: rgba(255,255,255,0.6); }
+.summary-card--balance .summary-amount { color: #ffffff; }
+
+.summary-card--negative {
+  background: var(--expense);
+  border-color: var(--expense);
+}
+.summary-card--negative .summary-label { color: rgba(255,255,255,0.6); }
+.summary-card--negative .summary-amount { color: #ffffff; }
 
 .summary-label {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-muted);
+  letter-spacing: 0.12em;
+  color: var(--muted);
 }
 
-.summary-amount { font-size: 1.5rem; font-weight: 700; }
-.summary-card--income  .summary-amount { color: var(--color-income); }
-.summary-card--expense .summary-amount { color: var(--color-expense); }
-.summary-card--balance .summary-amount { color: var(--color-balance); }
-.summary-card--negative .summary-amount { color: var(--color-expense); }
+.summary-amount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.summary-card--income  .summary-amount { color: var(--income); }
+.summary-card--expense .summary-amount { color: var(--expense); }
 
 /* ── Section ───────────────────────────────────────────── */
 .section {
-  background: var(--color-surface);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px 24px;
-  box-shadow: var(--shadow);
+  padding: 20px 22px;
 }
 
 .section-title {
-  font-size: 1rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.65rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
   margin-bottom: 16px;
-  color: var(--color-text);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
 }
 
 .empty-state {
@@ -140,92 +167,141 @@ body {
   align-items: center;
   gap: 8px;
   padding: 40px 0;
-  color: var(--color-muted);
+  color: var(--muted);
   font-size: 0.875rem;
   text-align: center;
 }
 
 .empty-state-icon {
-  font-size: 2rem;
-  opacity: 0.4;
+  font-size: 1.75rem;
+  opacity: 0.35;
   line-height: 1;
 }
 
 /* ── Transaction List ──────────────────────────────────── */
-.transaction-list { display: flex; flex-direction: column; gap: 8px; }
+.transaction-list { display: flex; flex-direction: column; }
 
 .transaction-row {
   display: grid;
-  grid-template-columns: 72px 70px 80px 1fr auto auto;
+  grid-template-columns: 68px 66px 76px 1fr auto auto;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  background: var(--color-bg);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
   font-size: 0.875rem;
   transition: background 0.1s;
+  border-radius: 0;
 }
 
-.transaction-row:hover { background: #f1f5f9; }
+.transaction-row:last-child { border-bottom: none; }
 
-/* Mobile: flexbox wrap avoids broken grid auto-placement */
+.transaction-row:hover {
+  background: var(--accent-light);
+  border-radius: 3px;
+  margin: 0 -8px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 @media (max-width: 600px) {
   .transaction-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 4px 8px;
+    padding: 10px 0;
+    margin: 0;
   }
+  .transaction-row:hover { margin: 0; padding: 10px 0; border-radius: 0; }
   .tx-date      { order: 1; flex: 0 0 auto; }
   .tx-badge     { order: 2; flex: 0 0 auto; }
-  .tx-category  { order: 3; flex: 0 0 auto; font-size: 0.75rem; }
-  .tx-description { order: 4; flex: 1 1 100%; font-size: 0.875rem; }
+  .tx-category  { order: 3; flex: 0 0 auto; }
+  .tx-description { order: 4; flex: 1 1 100%; }
   .tx-amount    { order: 5; flex: 0 0 auto; margin-left: auto; }
   .btn-icon     { order: 6; flex: 0 0 auto; }
 }
 
-.tx-date { color: var(--color-muted); font-size: 0.75rem; white-space: nowrap; }
-.tx-category { color: var(--color-muted); }
+.tx-date {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--muted);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.tx-category {
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .tx-description { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .tx-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
   text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 99px;
+  letter-spacing: 0.07em;
+  padding: 2px 6px;
+  border-radius: 2px;
   white-space: nowrap;
 }
-/* Income badge uses darker shade for WCAG AA contrast on light green bg */
-.tx-badge--income  { background: var(--color-income-bg);  color: var(--color-income-badge); }
-.tx-badge--expense { background: var(--color-expense-bg); color: var(--color-expense); }
 
-.tx-amount { font-weight: 600; white-space: nowrap; }
-.tx-amount--income  { color: var(--color-income); }
-.tx-amount--expense { color: var(--color-expense); }
+.tx-badge--income  { background: var(--income-bg);  color: var(--income-badge); }
+.tx-badge--expense { background: var(--expense-bg); color: var(--expense); }
+
+.tx-amount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.tx-amount--income  { color: var(--income); }
+.tx-amount--expense { color: var(--expense); }
 
 /* ── Buttons ───────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 18px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  border: none;
-  transition: background 0.15s;
+  border: 1.5px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.btn--primary { background: var(--color-primary); color: #fff; }
-.btn--primary:hover { background: var(--color-primary-hover); }
+.btn--primary {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.5);
+}
+.btn--primary:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.85);
+}
+
+/* Filled variant for use inside modal/forms (white surface context) */
+.btn--filled {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.btn--filled:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
+
 .btn--full { width: 100%; justify-content: center; }
 
 .btn:focus-visible,
 .toggle-btn:focus-visible,
 .btn-icon:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -233,31 +309,31 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-muted);
+  color: var(--muted);
   font-size: 0.85rem;
   padding: 8px 10px;
   min-width: 36px;
   min-height: 36px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: background 0.1s, color 0.1s;
 }
-.btn-icon:hover { background: #f1f5f9; color: var(--color-text); }
-.btn-icon--danger:hover { background: var(--color-expense-bg); color: var(--color-expense); }
+.btn-icon:hover { background: var(--accent-light); color: var(--text); }
+.btn-icon--danger:hover { background: var(--expense-bg); color: var(--expense); }
 
 /* ── Modal ─────────────────────────────────────────────── */
 @keyframes modal-in {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(13, 20, 9, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,12 +342,13 @@ body {
 }
 
 .modal {
-  background: var(--color-surface);
+  background: var(--surface);
   border-radius: var(--radius);
   padding: 32px;
   width: 100%;
   max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 24px 72px rgba(13, 20, 9, 0.22);
   animation: modal-in 0.15s ease;
 }
 
@@ -282,7 +359,14 @@ body {
   margin-bottom: 24px;
 }
 
-.modal-header h2 { font-size: 1.25rem; font-weight: 700; }
+.modal-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
 
 /* ── Form ──────────────────────────────────────────────── */
 .form { display: flex; flex-direction: column; gap: 16px; }
@@ -291,29 +375,31 @@ body {
 
 .form-group label,
 .form-group-legend {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
 }
 
 .form-group input,
 .form-group select {
   padding: 9px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  font-size: 1rem;  /* prevents iOS auto-zoom on focus */
-  color: var(--color-text);
-  background: var(--color-surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(26, 92, 58, 0.12);
 }
 
 .toggle-group { display: flex; gap: 8px; margin-top: 2px; }
@@ -321,29 +407,31 @@ body {
 .toggle-btn {
   flex: 1;
   padding: 8px;
-  border: 1.5px solid var(--color-border);
-  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
   background: none;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
   transition: all 0.15s;
 }
 
-/* Semantic active colors matching the rest of the UI */
 .toggle-btn[data-type="expense"].active {
-  background: var(--color-expense);
-  border-color: var(--color-expense);
+  background: var(--expense);
+  border-color: var(--expense);
   color: #fff;
 }
 .toggle-btn[data-type="income"].active {
-  background: var(--color-income);
-  border-color: var(--color-income);
+  background: var(--income);
+  border-color: var(--income);
   color: #fff;
 }
 
 .form-error {
-  color: var(--color-expense);
+  color: var(--expense);
   font-size: 0.875rem;
 }
